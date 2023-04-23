@@ -14,6 +14,14 @@ def health():
 
 @app.route('/addUser', methods = ['POST'])
 def addUser():
+    """
+    {
+    "warriorID":1235321,
+    "firstName":"john",
+    "lastName":"Wick",
+    "isAdmin":false
+    }
+    """
     user = db.Users()
     if request.method == 'POST':
         content_type = request.headers.get('Content-Type')
@@ -29,6 +37,11 @@ def addUser():
 
 @app.route('/checkUser', methods = ['POST'])
 def checkUser():
+    """
+    {
+    "warriorID":1234566
+    }
+    """
     user = db.Users()
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
