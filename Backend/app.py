@@ -2,11 +2,19 @@
 Server document for Print Tracker.
 This will use the flask and mariadb libraries.
 """
-
-from flask import Flask, request
-# import database as db
+from flask import Flask, jsonify, request
+from marshmallow import Schema, fields, ValidationError
 import dbAlchemy as db
 app = Flask(__name__)
+
+class AddSchema(Schema):
+    warriorID = fields.Integer(required=True)
+    firstName = fields.String(required=True)
+    lastName = fields.String(required=True)
+    isAdmin = fields.Boolean(required =True)
+    
+class CheckSchema(Schema):
+    warriorID = fields.Integer(required=True)
 
 @app.route('/')
 def health():
@@ -23,17 +31,22 @@ def addUser():
     }
     """
     user = db.Users()
-    if request.method == 'POST':
-        content_type = request.headers.get('Content-Type')
-        if (content_type == 'application/json'):
-            json = request.json
-            user.writeData(warriorID=json["warriorID"],fname=json["firstName"],lname=json["lastName"], isAdmin=json["isAdmin"])
-            result = user.readData()
-            for u in result:
-                print(u.warriorID)
-                return f"Added User: {json}"
-        else:
-            return "Content must be formatted as JSON"
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        req = request.json            
+        schema = AddSchema()
+        try:
+            result = schema.load(req)            
+            if (result):
+                userID = user.writeData(warriorID=result["warriorID"],fname=result["firstName"],lname=result["lastName"], isAdmin=result["isAdmin"])
+                if userID == "Insert failed":
+                    return {"Status": 202, "Message": "User not created"}
+                elif userID == "Bad Format":
+                    return {"Status": 202, "Message": "Bad input"}
+                else:
+                    return {"Status": 200, "userID": userID}
+        except ValidationError as err:
+            return jsonify(err.messages), 400
 
 @app.route('/checkUser', methods = ['POST'])
 def checkUser():
@@ -45,9 +58,16 @@ def checkUser():
     user = db.Users()
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
-        json = request.json
-        result = user.readData(warriorID=json["warriorID"])
-        print(f"Result: {result.firstName}, {result.lastName}")
-        return f"Found user: {result.firstName}, {result.lastName}"
+        reqBody = request.json
+        schema = AddSchema()
+        try:   
+            req = schema.load(reqBody)
+            result = user.readData(warriorID=req["warriorID"])
+            if result == "No entry Found":
+                return {"Status": 202, "Message": "User not found"}
+            else:
+                return {"Status": 200, "userID":result.userID}
+        except ValidationError as err:
+            return jsonify(err.messages), 400
     else:
-        return "Content must be formatted as JSON"
+        return "Content must be formatted as JSON", 400

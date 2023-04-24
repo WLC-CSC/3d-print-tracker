@@ -37,10 +37,13 @@ class Users(Base):
         with createSession() as session:
             if type(fname) == str and type(lname) == str:
                 new_row = Users(warriorID=warriorID, firstName=fname, lastName=lname, isAdmin=isAdmin)
-                session.add(new_row)
-                session.commit()
+                if session.add(new_row):
+                    session.commit()
+                    return new_row.userID
+                else:
+                    return "Insert failed"
             else:
-                raise ValueError('Bad type(s).')
+                return "Bad Format"
             
         
     def readData(self, warriorID=None):
@@ -48,7 +51,12 @@ class Users(Base):
             if warriorID:
                 result = session.query(Users).\
                     filter(Users.warriorID == warriorID).first()
+                if result:
+                    return result
+                else:
+                    return "No entry Found"
             else:
                 result = session.query(Users).all()
+                return result
         
-        return result
+            
