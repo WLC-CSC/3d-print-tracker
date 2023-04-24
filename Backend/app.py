@@ -59,7 +59,7 @@ def checkUser():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
         reqBody = request.json
-        schema = AddSchema()
+        schema = CheckSchema()
         try:   
             req = schema.load(reqBody)
             result = user.readData(warriorID=req["warriorID"])
