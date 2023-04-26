@@ -37,11 +37,14 @@ class Users(Base):
         with createSession() as session:
             if type(fname) == str and type(lname) == str:
                 new_row = Users(warriorID=warriorID, firstName=fname, lastName=lname, isAdmin=isAdmin)
-                if session.add(new_row):
+                result = new_row.readData(warriorID=warriorID)
+                if result == "No entry Found":
+                    session.add(new_row)
                     session.commit()
                     return new_row.userID
                 else:
-                    return "Insert failed"
+                    if result.warriorID == warriorID:
+                        return "Duplicate entry"
             else:
                 return "Bad Format"
             

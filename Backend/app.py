@@ -36,7 +36,7 @@ def addUser():
         req = request.json            
         schema = AddSchema()
         try:
-            result = schema.load(req)            
+            result = schema.load(req)
             if (result):
                 userID = user.writeData(warriorID=result["warriorID"],fname=result["firstName"],lname=result["lastName"], isAdmin=result["isAdmin"])
                 if userID == "Insert failed":
