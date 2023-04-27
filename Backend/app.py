@@ -38,6 +38,8 @@ def addUser():
         try:
             result = schema.load(req)
             if (result):
+                if len(str(result["warriorID"])) > 7 or len(str(result["warriorID"])) < 7:
+                    return {"Status": 203, "WarriorID": "ID is longer than 7 characters" }
                 userID = user.writeData(warriorID=result["warriorID"],fname=result["firstName"],lname=result["lastName"], isAdmin=result["isAdmin"])
                 if userID == "Insert failed":
                     return {"Status": 202, "Message": "User not created"}
@@ -64,9 +66,10 @@ def checkUser():
             req = schema.load(reqBody)
             result = user.readData(warriorID=req["warriorID"])
             if result == "No entry Found":
+                print("No user")
                 return {"Status": 202, "Message": "User not found"}
             else:
-                return {"Status": 200, "userID":result.userID}
+                return {"Status": 200, "userID":result.userID, "firstName": result.firstName, "lastName":result.lastName}
         except ValidationError as err:
             return jsonify(err.messages), 400
     else:

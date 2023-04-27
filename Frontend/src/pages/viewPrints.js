@@ -1,4 +1,4 @@
-function addPrint() {
+function viewPrints() {
     return (
         <div>
             <h1>View current prints</h1>
@@ -9,4 +9,4 @@ function addPrint() {
 async function navigateHome() {
     document.location.replace("/");
 }
-export default addPrint;
+export default viewPrints;

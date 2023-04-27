@@ -1,0 +1,20 @@
+.page-header {
+    background-color: #006643;
+    color: black;
+    text-align: center;
+    padding-left: 10px;
+    display:grid;
+    border-bottom: 5px black solid;
+    font-family: Josefin Sans;
+
+    /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    font-size: 1.50em;
+}
+.nav-bar{
+    background-color: #eeeeee;
+    text-align: left;
+}
+@font-face {
+    font-family: 'Josefin Sans';
+    src: local('Josefin Sans'), url("./Josefin_Sans/static/JosefinSans-Medium.ttf") format('truetype');
+}
