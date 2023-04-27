@@ -1,15 +1,19 @@
 .page-header {
     background-color: #006643;
-    color: black;
-    text-align: center;
-    padding-left: 10px;
     display:grid;
+    grid-template-columns: 10% 1fr;
     border-bottom: 5px black solid;
-    font-family: Josefin Sans;
-
-    /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
-    font-size: 1.50em;
 }
+.header-image{
+    margin: 10px;
+}
+.header-text{
+    color: black;
+    text-align: left;
+    font-size: 1.50em;
+    font-family: Josefin Sans;
+}
+
 .nav-bar{
     background-color: #eeeeee;
     text-align: left;

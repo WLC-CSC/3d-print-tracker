@@ -5,6 +5,8 @@ function Home() {
     return (
         <div className="home-grid">
             <div className="enter-info" id="data-entry">
+                <label>Please register for your account!</label>
+                <br />
                 <label>First Name: </label>
                 <input type="text" id="student-first"></input>
                 <br></br>
@@ -15,7 +17,10 @@ function Home() {
                     <button onClick={submitStudent}>Submit</button>
                 </div>
             </div>
-
+            <div className="page-navigation" id="navs">
+                <button onClick={navigatePrint}>Print</button>
+                <button onClick={navigateView}>View</button>
+            </div>
             <div className="home-container">
                 <div className="greeting" id="greeting-message">
                     <h3 id="greet">Welcome</h3>
@@ -26,8 +31,8 @@ function Home() {
                     <img
                         src={banner}
                         alt="3D printed object"
-                        height={250}
-                        width={250}
+                        height={225}
+                        width={225}
                     />
                 </div>
                 <div className="enter-id">
@@ -43,17 +48,11 @@ function Home() {
                     <button onClick={Submit}>Submit</button>
                 </div>
             </div>
-            <div className="page-navigation" id="navs">
-                <button onClick={navigatePrint}>Print</button>
-                <button onClick={navigateView}>View</button>
-            </div>
         </div>
     );
 }
 
 async function checkUser(response) {
-    console.log(response.data);
-    console.log(response.data["userID"]);
     let fname = response.data["firstName"];
     let lname = response.data["lastName"];
     document.getElementById("greet").innerHTML = `Welcome ${fname} ${lname}!`;
@@ -63,7 +62,6 @@ async function checkUser(response) {
 
 async function addUser(response) {
     document.getElementById("data-entry").style.display = "block";
-    console.log(response.data["Message"]);
 }
 
 async function showError(response) {
@@ -75,8 +73,6 @@ async function showError(response) {
 async function Submit() {
     document.getElementById("greeting-message").style.display = "none";
     document.getElementById("data-entry").style.display = "none";
-    // console.log("URL");
-    // console.log(document.URL());
 
     const studentId = document.getElementById("student-id").value;
     if (studentId < 1000000 || studentId > 10000000) {
@@ -100,8 +96,6 @@ async function submitStudent() {
     let warriorID = document.getElementById("student-id").value;
     let first = document.getElementById("student-first").value;
     let last = document.getElementById("student-last").value;
-    console.log(first);
-    console.log(last);
     let req = {
         warriorID: warriorID,
         firstName: first,
@@ -110,7 +104,6 @@ async function submitStudent() {
     };
 
     let response = await axios.post("/api2", req);
-    console.log(response.status);
     if (response.status === 200) {
         document.getElementById("navs").style.display = "block";
     }
