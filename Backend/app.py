@@ -37,16 +37,18 @@ def addUser():
         schema = AddSchema()
         try:
             result = schema.load(req)
+            print(result)
             if (result):
                 if len(str(result["warriorID"])) > 7 or len(str(result["warriorID"])) < 7:
                     return {"Status": 203, "WarriorID": "ID is longer than 7 characters" }
                 userID = user.writeData(warriorID=result["warriorID"],fname=result["firstName"],lname=result["lastName"], isAdmin=result["isAdmin"])
-                if userID == "Insert failed":
+                if userID == "Duplicate entry":
                     return {"Status": 202, "Message": "User not created"}
                 elif userID == "Bad Format":
                     return {"Status": 202, "Message": "Bad input"}
                 else:
                     return {"Status": 200, "userID": userID}
+
         except ValidationError as err:
             return jsonify(err.messages), 400
 
