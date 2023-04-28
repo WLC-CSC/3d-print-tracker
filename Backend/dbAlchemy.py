@@ -1,6 +1,5 @@
 from sqlalchemy.orm import declarative_base, sessionmaker
 import sqlalchemy as sqla
-from sqlalchemy import DateTime
 import os
 from datetime import datetime
 from dotenv import load_dotenv
