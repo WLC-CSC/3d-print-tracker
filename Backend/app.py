@@ -78,7 +78,7 @@ def checkUser():
             if result == "No entry Found":
                 return {"Status": 202, "Message": "User not found"}
             else:
-                return {"Status": 200, "userID":result.userID, "firstName":result.firstName, "LastName":result.lastName}
+                return {"Status": 200, "userID":result.userID, "firstName": result.firstName, "LastName":result.lastName}
         except ValidationError as err:
             return jsonify(err.messages), 400
     else:
@@ -88,7 +88,7 @@ def checkUser():
 def addPrint():
     """
     {
-    "userId":3,
+    "userID":3,
     "description":"Tiny toothless statue",
     "price":4.59
     }
