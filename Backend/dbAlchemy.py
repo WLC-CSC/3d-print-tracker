@@ -1,6 +1,7 @@
 from sqlalchemy.orm import declarative_base, sessionmaker
 import sqlalchemy as sqla
 import os
+from datetime import datetime
 from dotenv import load_dotenv
 load_dotenv()
 Base = declarative_base()
@@ -58,5 +59,50 @@ class Users(Base):
             else:
                 result = session.query(Users).all()
                 return result
-        
+
+
+class Prints(Base):
+    __tablename__ = 'prints'
+    printID = sqla.Column('printID', sqla.Integer, primary_key=True)
+    userID = sqla.Column('userID', sqla.Integer, nullable=False)
+    description = sqla.Column('description', sqla.Text, nullable=False)
+    price = sqla.Column('price', sqla.Float, nullable=False)
+    printDate = sqla.Column('printDate', sqla.DateTime, nullable=False)
+    invoiced = sqla.Column('invoiced', sqla.Boolean, nullable=True)
+    
+    
+    def writeData(self, userID, description, price):
+        with createSession() as session:
+            if type(userID) == int and type(description) == str and type(price) == float:
+                new_row = Prints(userID=userID,
+                                 description=description,
+                                 price=price,
+                                 printDate=str(datetime.utcnow()),
+                                 invoiced=False)
+                session.add(new_row)
+                session.commit()
+                return new_row.printID
+            else:
+                return "Bad Format"
             
+        
+    def readData(self, userID=None):
+        with createSession() as session:
+            if userID:
+                result = session.query(Prints).filter(Prints.userID == userID).first()
+                if result:
+                    return result
+                else:
+                    return "No entry found"
+            else:
+                results = []
+                result = session.query(Prints).all()
+                for r in result:
+                    results.append({
+                        'userID':r.userID,
+                        'description':r.description,
+                        'price':r.price,
+                        'printDate':r.printDate,
+                        'invoiced':r.invoiced
+                    })
+                return results
