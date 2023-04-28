@@ -4,9 +4,6 @@ import os
 from datetime import datetime
 from dotenv import load_dotenv
 load_dotenv()
-
-# import pandas as pd
-
 Base = declarative_base()
 
 def createSession():
