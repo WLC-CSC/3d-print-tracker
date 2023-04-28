@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+@font-face {
+  font-family: 'Josefin Sans';
+  src: local('Josefin Sans'), url("./Josefin_Sans/static/JosefinSans-Medium.ttf") format('truetype');
+}

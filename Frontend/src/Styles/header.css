@@ -1,0 +1,24 @@
+.page-header {
+    background-color: #006643;
+    display:grid;
+    grid-template-columns: 10% 1fr;
+    border-bottom: 5px black solid;
+}
+.header-image{
+    margin: 10px;
+}
+.header-text{
+    color: black;
+    text-align: left;
+    font-size: 1.50em;
+    font-family: Josefin Sans;
+}
+
+.nav-bar{
+    background-color: #eeeeee;
+    text-align: left;
+}
+@font-face {
+    font-family: 'Josefin Sans';
+    src: local('Josefin Sans'), url("./Josefin_Sans/static/JosefinSans-Medium.ttf") format('truetype');
+}
