@@ -21,4 +21,24 @@ module.exports = function (app) {
             },
         })
     );
+    app.use(
+        "/api3",
+        createProxyMiddleware({
+            target: "http://127.0.0.1:5000",
+            changeOrigin: true,
+            pathRewrite: {
+                "^/api3": "addPrint",
+            },
+        })
+    );
+    app.use(
+        "/api4",
+        createProxyMiddleware({
+            target: "http://127.0.0.1:5000",
+            changeOrigin: true,
+            pathRewrite: {
+                "^/api4": "getPrints",
+            },
+        })
+    );
 };
