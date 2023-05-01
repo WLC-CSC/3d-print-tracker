@@ -47,10 +47,9 @@ def addUser():
         schema = AddUserSchema()
         try:
             result = schema.load(req)
-            print(result)
             if (result):
-                if len(str(result["warriorID"])) > 7 or len(str(result["warriorID"])) < 7:
-                    return {"Status": 203, "WarriorID": "ID is longer than 7 characters" }
+                if result["warriorID"] < 1000000 or result["warriorID"] > 10000000:
+                    return {"Status": 203, "WarriorID": "ID is not between 1,000,000 and 10,000,000" }
                 userID = user.writeData(warriorID=result["warriorID"],fname=result["firstName"],lname=result["lastName"], isAdmin=result["isAdmin"])
                 if userID == "Duplicate entry":
                     return {"Status": 202, "Message": "User not created"}
@@ -78,7 +77,6 @@ def checkUser():
             req = schema.load(reqBody)
             result = user.readData(warriorID=req["warriorID"])
             if result == "No entry Found":
-                print("No user")
                 return {"Status": 202, "Message": "User not found"}
             else:
 
