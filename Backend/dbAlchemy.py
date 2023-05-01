@@ -89,20 +89,37 @@ class Prints(Base):
     def readData(self, userID=None):
         with createSession() as session:
             if userID:
-                result = session.query(Prints).filter(Prints.userID == userID).first()
+                results = []
+                result = session.query(Prints).filter(Prints.userID == userID).all()
                 if result:
-                    return result
+                    # Need to change the form otherwise flask can't apply json
+                    # formatting to the default returned list of Alchemy objects
+                    # It is converting it into a list of simple json key value objects
+                    for r in result:
+                        results.append({
+                            'printID':r.printID,
+                            'userID':r.userID,
+                            'description':r.description,
+                            'price':r.price,
+                            'printDate':r.printDate,
+                            'invoiced':r.invoiced
+                        })
+                    return results
                 else:
                     return "No entry found"
             else:
                 results = []
                 result = session.query(Prints).all()
-                for r in result:
-                    results.append({
-                        'userID':r.userID,
-                        'description':r.description,
-                        'price':r.price,
-                        'printDate':r.printDate,
-                        'invoiced':r.invoiced
-                    })
-                return results
+                if result:
+                    for r in result:
+                        results.append({
+                            'printID':r.printID,
+                            'userID':r.userID,
+                            'description':r.description,
+                            'price':r.price,
+                            'printDate':r.printDate,
+                            'invoiced':r.invoiced
+                        })
+                    return results
+                else:
+                    return "No entry found"

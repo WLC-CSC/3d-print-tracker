@@ -24,7 +24,7 @@ class AddPrintSchema(Schema):
     price = fields.Float(required=True)
 
 class GetPrintsSchema(Schema):
-    userID = fields.Integer(required=True)
+    userID = fields.Integer(required=False)
 
 @app.route('/')
 def health():
@@ -103,16 +103,20 @@ def addPrint():
         reqBody = request.json
         schema = AddPrintSchema()
         try:
+            # Load the posted JSON properties and require the given headers
             result = schema.load(reqBody)
             if result:
                 price = result["price"]
                 if price > 1000.0 or price <= 0.0 or result["description"].strip() == "":
                     return {"Status": 202, "Message": "Bad input"}
+                
                 printID = prints.writeData(**result)
                 if printID == "Bad Format":
                     return {"Status": 202, "Message": "Bad input"}
                 else:
                     return {"Status": 200, "userID": printID}
+            else:
+                return {"Status": 202, "Message": "Unable to read post JSON"}
         
         except ValidationError as err:
             return jsonify(err.messages), 400
@@ -121,7 +125,7 @@ def addPrint():
 def getPrints():
     """
     {
-    "userId":3
+    "userId":3  # Optional field. Don't send to get all prints.
     }
     """
     prints = db.Prints()
@@ -131,12 +135,18 @@ def getPrints():
         schema = GetPrintsSchema()
         try:
             result = schema.load(reqBody)
-            if result:
-                prints = prints.readData()
-                if prints == "No entry found":
-                    return {"Status": 202, "Message": "No prints found"}
+            if "userID" in result:
+                if result["userID"] > 0:
+                    past_prints = prints.readData(userID=result["userID"])
                 else:
-                    return {"Status": 200, "prints": prints}
+                    return {"Status": 202, "Message": "Invalid userID"}
+            else:
+                past_prints = prints.readData()
+                
+            if past_prints == "No entry found":
+                return {"Status": 202, "Message": "No prints found"}
+            else:
+                return {"Status": 200, "prints": past_prints}
         
         except ValidationError as err:
             return jsonify(err.messages), 400
