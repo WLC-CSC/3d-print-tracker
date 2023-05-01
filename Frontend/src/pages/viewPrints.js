@@ -14,7 +14,9 @@ function ViewPrints() {
         let response = await axios.post("/api4", req);
         let printsData = response.data["prints"];
         for (let print in printsData) {
-            if (printsData[print]["userID"] == inputUserID) {
+            let uid = printsData[print]["userID"];
+            uid = uid.toString();
+            if (uid === inputUserID) {
                 printsArray.push(printsData[print]);
             }
         }
@@ -52,7 +54,7 @@ function ViewPrints() {
                     </thead>
                     <tbody>
                         {prints.map((print) => (
-                            <tr key={print.id}>
+                            <tr key="{print.printID}">
                                 <td>{print.description}</td>
                                 <td>{print.price}</td>
                                 <td>{print.printDate}</td>
