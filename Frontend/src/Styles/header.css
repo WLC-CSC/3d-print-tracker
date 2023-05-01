@@ -5,13 +5,15 @@
     border-bottom: 5px black solid;
 }
 .header-image{
-    margin: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
 }
 .header-text{
-    color: black;
+    margin: 10px;
+    /* color: black;
     text-align: left;
     font-size: 1.50em;
-    font-family: Josefin Sans;
+    font-family: Josefin Sans; */
 }
 
 .nav-bar{

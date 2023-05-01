@@ -1,27 +1,27 @@
 import { useState } from "react";
 import axios from "axios";
-import "../Styles/viewPrints.css"
+import "../Styles/viewPrints.css";
 
 function ViewPrints() {
     const [prints, setPrints] = useState([]);
 
     const handleGetPrints = async () => {
-        let printsArray = []
+        let printsArray = [];
         let inputUserID = localStorage.getItem("userID");
         let req = {
             userID: inputUserID,
         };
         let response = await axios.post("/api4", req);
         let printsData = response.data["prints"];
-        for (let print in printsData){
-            if (printsData[print]["userID"] == inputUserID){
-                printsArray.push(printsData[print])
+        for (let print in printsData) {
+            if (printsData[print]["userID"] == inputUserID) {
+                printsArray.push(printsData[print]);
             }
         }
         for (let print in printsArray) {
             if (printsArray[print]["invoiced"] === false) {
                 printsArray[print]["invoiced"] = "No";
-            } else if (printsData[print]["invoiced"] === true) {
+            } else {
                 printsArray[print]["invoiced"] = "Yes";
             }
         }
@@ -36,7 +36,7 @@ function ViewPrints() {
     }
 
     return (
-        <div className="view-grid"onLoad={handleGetPrints}>
+        <div className="view-grid" onLoad={handleGetPrints}>
             <div className="greeting">
                 <h1>Your 3D Prints</h1>
             </div>
@@ -67,7 +67,6 @@ function ViewPrints() {
                 <button onClick={navigateHome}>Home</button>
                 <button onClick={navigatePrint}>Add Print</button>
             </div>
-           
         </div>
     );
 }
