@@ -97,6 +97,7 @@ class Prints(Base):
                     # It is converting it into a list of simple json key value objects
                     for r in result:
                         results.append({
+                            'printID':r.printID,
                             'userID':r.userID,
                             'description':r.description,
                             'price':r.price,
@@ -112,6 +113,7 @@ class Prints(Base):
                 if result:
                     for r in result:
                         results.append({
+                            'printID':r.printID,
                             'userID':r.userID,
                             'description':r.description,
                             'price':r.price,

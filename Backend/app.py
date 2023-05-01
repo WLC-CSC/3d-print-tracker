@@ -125,7 +125,7 @@ def addPrint():
 def getPrints():
     """
     {
-    "userId":3  # Set to 0 to get everyone's prints
+    "userId":3  # Optional field. Don't send to get all prints.
     }
     """
     prints = db.Prints()
