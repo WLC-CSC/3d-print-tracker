@@ -49,8 +49,21 @@ def addUser():
             result = schema.load(req)
             if (result):
                 if result["warriorID"] < 1000000 or result["warriorID"] > 10000000:
-                    return {"Status": 203, "WarriorID": "ID is not between 1,000,000 and 10,000,000" }
+                    return {"Status": 202, "Message": "Invalid warriorID value" }
+                
+                first, last = result["firstName"], result["lastName"]
+                if first.strip() == "":
+                    return {"Status": 202, "Message": "Invalid firstName value"}
+                elif len(first) > 50:
+                    return {"Status": 202, "Message": "firstName is too long"}
+
+                if last.strip() == "":
+                    return {"Status": 202, "Message": "Invalid lastName value"}
+                elif len(last) > 100:
+                    return {"Status": 202, "Message": "lastName is too long"}
+                
                 userID = user.writeData(warriorID=result["warriorID"],fname=result["firstName"],lname=result["lastName"], isAdmin=result["isAdmin"])
+                
                 if userID == "Duplicate entry":
                     return {"Status": 202, "Message": "User not created"}
                 elif userID == "Bad Format":
@@ -79,8 +92,8 @@ def checkUser():
             if result == "No entry Found":
                 return {"Status": 202, "Message": "User not found"}
             else:
-
                 return {"Status": 200, "userID":result.userID, "firstName": result.firstName, "lastName":result.lastName}
+            
         except ValidationError as err:
             return jsonify(err.messages), 400
     else:
