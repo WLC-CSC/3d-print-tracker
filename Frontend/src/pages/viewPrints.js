@@ -54,7 +54,7 @@ function ViewPrints() {
                     </thead>
                     <tbody>
                         {prints.map((print) => (
-                            <tr key="{print.printID}">
+                            <tr key={print.printID}>
                                 <td>{print.description}</td>
                                 <td>{print.price}</td>
                                 <td>{print.printDate}</td>

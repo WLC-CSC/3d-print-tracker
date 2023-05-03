@@ -1,3 +1,6 @@
+body{
+    background-color: #006643;
+}
 .home-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -5,6 +8,7 @@
     margin-top: 10px;
     padding: 5px;
     font-family: Josefin Sans;
+    background-color: #006643;
 }
 .home-container{
     align-items: center;
@@ -13,6 +17,7 @@
     padding: 15px;
     border: 3px black solid;
     background-color: rgb(188,190,192);
+        /* background-color: #006643; */
     height: 450px;
 
 }
@@ -57,9 +62,9 @@
     border: 3px black solid;
     background-color: rgb(188, 190, 192);
 }
-img{
+/* img{
     border: 3px black solid;
-}
+} */
 label{
     margin: 3px;
 }

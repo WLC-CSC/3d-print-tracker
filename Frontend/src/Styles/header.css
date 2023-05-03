@@ -1,5 +1,6 @@
 .page-header {
-    background-color: #006643;
+    /* background-color: #006643; */
+    background-color:white;
     display:grid;
     grid-template-columns: 10% 1fr;
     border-bottom: 5px black solid;
