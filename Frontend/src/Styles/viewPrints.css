@@ -1,59 +1,52 @@
-body{
-    background-color: #006643;
-}
-.home-grid {
+.view-grid {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 20px;
     margin-top: 10px;
     padding: 5px;
     font-family: Josefin Sans;
-    background-color: #006643;
 }
-.home-container{
-    align-items: center;
+
+.view-container {
     margin-left: 20%;
     margin-right: 20%;
     padding: 15px;
     border: 3px black solid;
-    background-color: rgb(188,190,192);
-        /* background-color: #006643; */
+    background-color: rgb(188, 190, 192);
     height: 450px;
 
 }
-.enter-id{
-    text-align: center;
-    padding: 3px;
-    margin:5px;
+.view-table{
+    text-align: left;
+    width: 100%;
+    vertical-align: bottom;
+    border-collapse: collapse;
+
 }
-.enter-id label{
-    margin-bottom: 5px;
+.view-table tr{
+    text-align: center;
+    vertical-align: bottom;
+    border-collapse: collapse;
+}
+.view-table td{
+    border: 3px black solid;
+    text-align: center;
+    vertical-align: bottom;
 }
 
-.enter-info{
-    text-align: center;
-    margin-left: 20%;
-    margin-right: 20%;
-    padding: 10px;
-    border: 3px black solid;
-    background-color: rgb(188, 190, 192);
-    display: none;
-}
-.submit-student{
+.submit-view {
     padding: 2px;
     align-items: center;
     text-align: center;
 }
-.title{
-    text-align: center;
-}
-.greeting{
-    display:none;
-    color: rgb(30,30,30);
+
+.greeting {
+    color: rgb(30, 30, 30);
     text-align: center;
     font-size: 1.25em;
 }
-.page-navigation{
+
+.page-navigation {
     display: none;
     text-align: center;
     margin-left: 20%;
@@ -62,21 +55,21 @@ body{
     border: 3px black solid;
     background-color: rgb(188, 190, 192);
 }
-/* img{
-    border: 3px black solid;
-} */
-label{
+label {
     margin: 3px;
 }
-input{
+
+input {
     margin: 5px;
 }
-button{
+
+button {
     width: 30%;
     height: 20px;
-    background-color:rgb(30, 30, 30);
+    background-color: rgb(30, 30, 30);
     color: white;
 }
+
 @font-face {
     font-family: 'Josefin Sans';
     src: local('Josefin Sans'), url("./Josefin_Sans/static/JosefinSans-Medium.ttf") format('truetype');

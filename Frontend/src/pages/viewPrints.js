@@ -1,12 +1,76 @@
-function viewPrints() {
+import { useState } from "react";
+import axios from "axios";
+import "../Styles/viewPrints.css";
+
+function ViewPrints() {
+    const [prints, setPrints] = useState([]);
+
+    const handleGetPrints = async () => {
+        let printsArray = [];
+        let inputUserID = localStorage.getItem("userID");
+        let req = {
+            userID: inputUserID,
+        };
+        let response = await axios.post("/api4", req);
+        let printsData = response.data["prints"];
+        for (let print in printsData) {
+            let uid = printsData[print]["userID"];
+            uid = uid.toString();
+            if (uid === inputUserID) {
+                printsArray.push(printsData[print]);
+            }
+        }
+        for (let print in printsArray) {
+            if (printsArray[print]["invoiced"] === false) {
+                printsArray[print]["invoiced"] = "No";
+            } else {
+                printsArray[print]["invoiced"] = "Yes";
+            }
+        }
+        await setPrints(printsArray);
+    };
+
+    const navigateHome = () => {
+        document.location.replace("/");
+    };
+    async function navigatePrint() {
+        document.location.replace("/addPrint");
+    }
+
     return (
-        <div>
-            <h1>View current prints</h1>
-            <button onClick={navigateHome}>Home</button>
+        <div className="view-grid" onLoad={handleGetPrints}>
+            <div className="greeting">
+                <h1>Your 3D Prints</h1>
+            </div>
+            <div className="view-container">
+                <table className="view-table">
+                    <thead>
+                        <tr>
+                            <th>Description:</th>
+                            <th>Price:</th>
+                            <th>Date:</th>
+                            <th>Invoiced:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {prints.map((print) => (
+                            <tr key={print.printID}>
+                                <td>{print.description}</td>
+                                <td>{print.price}</td>
+                                <td>{print.printDate}</td>
+                                <td>{print.invoiced}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <div className="submit-view">
+                <button onClick={handleGetPrints}>View Prints</button>
+                <button onClick={navigateHome}>Home</button>
+                <button onClick={navigatePrint}>Add Print</button>
+            </div>
         </div>
     );
 }
-async function navigateHome() {
-    document.location.replace("/");
-}
-export default viewPrints;
+
+export default ViewPrints;
