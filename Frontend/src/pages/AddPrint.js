@@ -62,6 +62,7 @@ async function submitPrint() {
         let response = await axios.post("/api3", req);
         if (response.status === 200) {
             console.log("Print submitted");
+            document.getElementById("print-description").value = "";
         } else {
             alert("Please try again.");
             console.log("Print failed");
