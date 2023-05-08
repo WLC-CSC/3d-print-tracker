@@ -48,9 +48,11 @@ def addUser():
         try:
             result = schema.load(req)
             if (result):
+                # Warrior ID must start with an integer greater than 0 and be exactly seven digits
                 if result["warriorID"] < 1000000 or result["warriorID"] > 10000000:
                     return {"Status": 202, "Message": "Invalid warriorID value" }
                 
+                # first and last names must not be empty and must not contain only spaces
                 first, last = result["firstName"], result["lastName"]
                 if first.strip() == "":
                     return {"Status": 202, "Message": "Invalid firstName value"}
@@ -117,9 +119,10 @@ def addPrint():
             # Load the posted JSON properties and require the given headers
             result = schema.load(reqBody)
             if result:
+                # Check taht price is valid
                 price = result["price"]
-                if price > 1000.0 or price <= 0.0 or result["description"].strip() == "":
-                    return {"Status": 202, "Message": "Bad input"}
+                if price > 50.0 or price < 0.0 or result["description"].strip() == "":
+                    return {"Status": 202, "Message": "Invalid price"}
                 
                 printID = prints.writeData(**result)
                 if printID == "Bad Format":

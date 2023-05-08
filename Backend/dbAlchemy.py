@@ -22,6 +22,7 @@ def createSession():
     
     
 class Users(Base):
+    """SQL Alchemy class to track users"""
     __tablename__ = 'users'
     userID = sqla.Column('userID', sqla.Integer, primary_key=True)
     warriorID = sqla.Column('warriorID', sqla.Integer, nullable=False)
@@ -33,18 +34,23 @@ class Users(Base):
     
     def writeData(self, warriorID, fname, lname, isAdmin):
         with createSession() as session:
-            if type(fname) == str and type(lname) == str:
-                new_row = Users(warriorID=warriorID, firstName=fname, lastName=lname, isAdmin=isAdmin)
-                result = new_row.readData(warriorID=warriorID)
-                if result == "No entry Found":
-                    session.add(new_row)
-                    session.commit()
-                    return new_row.userID
+            if warriorID >= 1000000 and warriorID < 10000000:
+                if type(fname) == str and type(lname) == str:
+                    new_row = Users(warriorID=warriorID, firstName=fname, lastName=lname, isAdmin=isAdmin)
+                    result = new_row.readData(warriorID=warriorID)
+                    # If the Warrior ID doesn't exist in the database, add a new row
+                    if result == "No entry Found":
+                        session.add(new_row)
+                        session.commit()
+                        return new_row.userID
+                    else:
+                    # Don't add a new entry if the Warrior ID already exists
+                        if result.warriorID == warriorID:
+                            return "Duplicate entry"
                 else:
-                    if result.warriorID == warriorID:
-                        return "Duplicate entry"
+                    return "Bad Format"
             else:
-                return "Bad Format"
+                return "Invalid Warrior ID. You've let Victor down."
             
         
     def readData(self, warriorID=None):
@@ -62,6 +68,7 @@ class Users(Base):
 
 
 class Prints(Base):
+    """SQL Alchemy class to track prints"""
     __tablename__ = 'prints'
     printID = sqla.Column('printID', sqla.Integer, primary_key=True)
     userID = sqla.Column('userID', sqla.Integer, nullable=False)
