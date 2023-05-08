@@ -43,6 +43,11 @@ function ViewPrints() {
                 <h1>Your 3D Prints</h1>
             </div>
             <div className="view-container">
+                <div className="submit-view">
+                    <button onClick={handleGetPrints}>View Prints</button>
+                    <button onClick={navigateHome}>Home</button>
+                    <button onClick={navigatePrint}>Add Print</button>
+                </div>
                 <table className="view-table">
                     <thead>
                         <tr>
@@ -63,11 +68,6 @@ function ViewPrints() {
                         ))}
                     </tbody>
                 </table>
-            </div>
-            <div className="submit-view">
-                <button onClick={handleGetPrints}>View Prints</button>
-                <button onClick={navigateHome}>Home</button>
-                <button onClick={navigatePrint}>Add Print</button>
             </div>
         </div>
     );
