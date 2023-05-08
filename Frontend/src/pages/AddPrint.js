@@ -46,25 +46,28 @@ function addPrint() {
     );
 }
 async function submitPrint() {
-    let inputDescription = document.getElementById("print-description").value;
-    let inputPrice = document.getElementById("print-price").value;
+    let descriptionInput = document.getElementById("print-description");
+    let priceInput = document.getElementById("print-price");
     let inputUserID = localStorage.getItem("userID");
-    if (document.getElementById("print-description").value === "") {
+    if (descriptionInput.value === "") {
         alert("Please enter a valid description!");
-    } else if (document.getElementById("print-price").value === "") {
+    } else if (descriptionInput.value.length > 250) {
+        alert("Description is too long!");
+    } else if (priceInput.value === "" || parseFloat(priceInput.value) <= 0.0) {
         alert("Please enter a valid price!");
+    } else if (parseFloat(priceInput.value) > 50.0) {
+        alert("Woah! Easy there, pardner. That's a hunk of change there. Mayhaps you should rethink your spending budget.");
     } else {
         let req = {
             userID: inputUserID,
-            description: inputDescription,
-            price: inputPrice,
+            description: descriptionInput.value,
+            price: priceInput.value,
         };
         let response = await axios.post("/api3", req);
         if (response.status === 200) {
-            console.log("Print submitted");
+            navigateView();
         } else {
             alert("Please try again.");
-            console.log("Print failed");
         }
     }
 }
