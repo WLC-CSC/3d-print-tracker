@@ -28,6 +28,10 @@ function ViewPrints() {
                 } else {
                     printsArray[print]["invoiced"] = "Yes";
                 }
+                let date = printsArray[print]["printDate"];
+                let new_date = date.substring(0, date.indexOf("00:"));
+                printsArray[print]["printDate"] = new_date;
+                printsArray[print]["price"] = "$" + printsArray[print]["price"].toFixed(2);
             }
             setPrints(printsArray);
         };
