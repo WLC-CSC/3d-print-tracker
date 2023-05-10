@@ -33,12 +33,14 @@ function Home() {
             <div className="home-container" id="home-container">
                 <div className="title">
                     <h1>Ready to Print?</h1>
-                    <img
-                        src={banner}
-                        alt="3D printed object"
-                        height={225}
-                        width={225}
-                    />
+                    <div className="print-img">
+                        <img
+                            src={banner}
+                            alt="3D printed object"
+                            height={225}
+                            width={225}
+                        />
+                    </div>
                 </div>
                 <div className="enter-id">
                     <label>Warrior ID Number: </label>
@@ -54,8 +56,8 @@ function Home() {
                 </div>
             </div>
             <div className="page-navigation" id="navs">
-                <button onClick={navigatePrint}>Print</button>
-                <button onClick={navigateView}>View</button>
+                <button onClick={navigatePrint}>Submit Print</button>
+                <button onClick={navigateView}>View Prints</button>
                 <button onClick={navigateLogout}>Logout</button>
             </div>
         </div>

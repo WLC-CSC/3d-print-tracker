@@ -14,6 +14,7 @@
     margin-right: 20%;
     padding: 15px;
     border: 3px black solid;
+    border-radius: 5px;
     background-color: rgb(188, 190, 192);
     height: 450px;
 
@@ -70,6 +71,18 @@
     border: 3px black solid;
 } */
 
+.print-img {
+    border: 3px;
+    border-style: solid;
+    border-color: black;
+    width: fit-content;
+    height: fit-content;
+    padding: 1em 1em;
+    margin: auto;
+    background-color: white;
+    border-radius: 5px;
+}
+
 label {
     margin: 3px;
 }
@@ -79,9 +92,11 @@ input {
 }
 
 button {
-    width: 30%;
+    min-width: fit-content;
+    width: 15%;
+    margin: 0 1em;
     height: 20px;
-    background-color: rgb(30, 30, 30);
+    background-color: rgb(68, 157, 209);
     color: white;
 }
 

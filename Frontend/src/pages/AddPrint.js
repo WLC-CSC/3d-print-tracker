@@ -10,12 +10,14 @@ function addPrint() {
                 <p>current user: {localStorage.getItem("userID")}</p>
             </div>
             <div className="print-container">
-                <img
-                    src={banner}
-                    alt="3D printed object"
-                    height={250}
-                    width={250}
-                />
+                <div className="print-img">
+                    <img
+                        src={banner}
+                        alt="3D printed object"
+                        height={250}
+                        width={250}
+                    />
+                </div>
                 <br></br>
                 <label>Description: </label>
                 <input
@@ -37,10 +39,13 @@ function addPrint() {
                 ></input>
                 <br></br>
                 <button onClick={submitPrint}>Add Print</button>
-            </div>
-            <div className="submit-print">
-                <button onClick={navigateHome}>Home</button>
-                <button onClick={navigateView}>View Prints</button>
+                <br></br>
+                <br></br>
+                <br></br>
+                <div className="submit-print">
+                    <button onClick={navigateView}>View Prints</button>
+                    <button onClick={navigateHome}>Logout</button>
+                </div>
             </div>
         </div>
     );
