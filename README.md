@@ -1,13 +1,4 @@
-# 3d-print-tracker
-Application to track user prints and costs. 
-
-## Running the backend
-### First Run
-- Verify python is installed
-- Navigate inside the backend folder
-- Run `pip install -r requirements.txt` in the terminal
-### Every Run
-- Navigate inside the backend folder
-- Run `bash run.sh`
-- To ensure that the api is running, make a get request to http://127.0.0.1:5000/
-    - If the api is running, it will return "Hello World"
+# Application to create, update, and track 3D Printing information
+## For information on how to run the frontend React.js app, see the README.md in the Frontend folder
+## For information on how to run the backend Python api, see the README.md in the Backend folder
+## For information on how to run the database using docker, see the Docker.md in the Database folder
