@@ -67,7 +67,7 @@ function Home() {
 async function checkUser(response) {
     let fname = response.data["firstName"];
     let lname = response.data["lastName"];
-    document.getElementById("greet").innerHTML = `Welcome ${fname} ${lname}!`;
+    document.getElementById("greet").innerHTML = `Welcome, ${fname} ${lname}!`;
     addGreetingNav();
 }
 
@@ -92,7 +92,6 @@ function clearForms() {
 
 function clearHome() {
     document.getElementById("home-container").style.display = "none";
-    // document.getElementById("student-id").value = "";
 }
 function addHome() {
     document.getElementById("home-container").style.display = "block";
@@ -127,10 +126,8 @@ async function submitStudent() {
     let first = document.getElementById("student-first").value;
     let last = document.getElementById("student-last").value;
     if (first.length < 1) {
-        console.log(document.getElementById("student-first").value);
         alert("Please enter your first name.");
     } else if (last.length < 1) {
-        console.log("Invalid lname");
         alert("Please enter your last name.");
     } else {
         let req = {

@@ -5,9 +5,8 @@ import banner from "../images/3dprint.jpg";
 function addPrint() {
     return (
         <div className="print-grid">
-            <div className="greeting">
-                <h1>Please enter your print info:</h1>
-                <p>current user: {localStorage.getItem("userID")}</p>
+            <div className="print-info-header">
+                <h2>Please enter your print info:</h2>
             </div>
             <div className="print-container">
                 <div className="print-img">

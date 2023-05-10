@@ -47,7 +47,7 @@ function ViewPrints() {
 
     return (
         <div className="view-grid">
-            <div className="greeting">
+            <div className="header">
                 <h1>Your 3D Prints</h1>
             </div>
             <div className="view-container">
