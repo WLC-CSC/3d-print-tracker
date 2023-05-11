@@ -1,5 +1,4 @@
 .page-header {
-    /* background-color: #006643; */
     background-color:white;
     display:grid;
     grid-template-columns: 10% 1fr;
@@ -11,10 +10,6 @@
 }
 .header-text{
     margin: 10px;
-    /* color: black;
-    text-align: left;
-    font-size: 1.50em;
-    font-family: Josefin Sans; */
 }
 
 .nav-bar{
